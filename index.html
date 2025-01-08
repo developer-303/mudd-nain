@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Naina</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #ff9a9e, #fad0c4);
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 3rem;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .carousel {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+            overflow: hidden;
+            position: relative;
+            width: 80%;
+            max-width: 600px;
+            margin: auto;
+        }
+
+        .carousel img {
+            width: 100%;
+            border-radius: 10px;
+            transition: transform 0.5s;
+        }
+
+        .carousel img:hover {
+            transform: scale(1.05);
+        }
+
+        .quote {
+            text-align: center;
+            font-size: 1.5rem;
+            margin: 30px;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .interactive-heart {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .heart {
+            width: 100px;
+            height: 90px;
+            background-color: red;
+            position: relative;
+            transform: rotate(-45deg);
+            animation: heartbeat 1.5s infinite;
+        }
+
+        .heart::before,
+        .heart::after {
+            content: '';
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            border-radius: 50%;
+            position: absolute;
+        }
+
+        .heart::before {
+            top: -50px;
+            left: 0;
+        }
+
+        .heart::after {
+            left: 50px;
+            top: 0;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% {
+                transform: scale(1) rotate(-45deg);
+            }
+            50% {
+                transform: scale(1.2) rotate(-45deg);
+            }
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 30px auto;
+            width: 90%;
+            max-width: 1000px;
+        }
+
+        .gallery img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .message-box {
+            text-align: center;
+            margin: 40px auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .message-box input {
+            padding: 10px;
+            width: 70%;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .message-box button {
+            padding: 10px 20px;
+            border: none;
+            background: #ff6f61;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .message-box button:hover {
+            background: #ff5a4c;
+        }
+
+        .confetti {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        .confetti div {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: rgba(255, 223, 186, 0.8);
+            animation: fall 3s infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-100px);
+            }
+            100% {
+                transform: translateY(100vh);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to Naina's Page</h1>
+    </header>
+
+    <div class="carousel">
+        <img src="Picsart_24-11-30_00-22-31-780.jpg" alt="Image 1">
+        <img src="Picsart_24-11-29_01-28-23-115.jpg" alt="Image 2">
+        <img src="Snapchat-1472988390.jpg" alt="Image 3">
+        <img src="Snapchat-647258495.jpg" alt="Image 4">
+    </div>
+
+    <div class="quote">
+        "You are the sparkle in my life, Naina! Always stay as beautiful as you are."
+    </div>
+
+    <div class="interactive-heart">
+        <div class="heart"></div>
+    </div>
+
+    <div class="gallery">
+        <img src="Picsart_24-11-29_01-28-23-115.jpg">
+        <img src="Picsart_24-11-30_00-22-31-780.jpg">
+        <img src="Snapchat-1472988390.jpg">
+        <img src="Snapchat-1472988390.jpg">
+    </div>
+
+    <div class="message-box">
+        <input type="text" id="messageInput" placeholder="Write a special message for Muddu...">
+        <button onclick="showMessage()">Submit</button>
+        <p id="messageOutput"></p>
+    </div>
+
+    <div class="confetti" id="confetti"></div>
+
+    <script>
+        const carousel = document.querySelector('.carousel');
+        const images = carousel.querySelectorAll('img');
+        let index = 0;
+
+        function showNextImage() {
+            images[index].style.display = 'none';
+            index = (index + 1) % images.length;
+            images[index].style.display = 'block';
+        }
+
+        images.forEach((img, i) => {
+            img.style.display = i === 0 ? 'block' : 'none';
+        });
+
+        setInterval(showNextImage, 3000);
+
+        function showMessage() {
+            const input = document.getElementById('messageInput').value;
+            const output = document.getElementById('messageOutput');
+            output.textContent = `thanks for a beautiful message  : "${input}"`;
+        }
+
+        function createConfetti() {
+            const confettiContainer = document.getElementById('confetti');
+            for (let i = 0; i < 100; i++) {
+                const confettiPiece = document.createElement('div');
+                confettiPiece.style.left = Math.random() * 100 + 'vw';
+                confettiPiece.style.animationDelay = Math.random() * 3 + 's';
+                confettiPiece.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 75%)`;
+                confettiContainer.appendChild(confettiPiece);
+            }
+        }
+
+        createConfetti();
+    </script>
+</body>
+</html>
